@@ -23,7 +23,7 @@ int main(int argc, char * argv[])
                 {
                     int arg = atoi(argv[i]);
                     int result = arg*arg;
-                    printf("result for arg %d: %d PID0: %d\n", arg, result, getpid());
+                    printf("result for arg %d: %d\n", arg, result);
                 }
                 exit(EXIT_SUCCESS);
             default:
@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
                 {
                     int arg = atoi(argv[i]);
                     int result = arg*arg;
-                    printf("result for arg %d: %d PIDD: %d\n", arg, result, getpid());
+                    printf("result for arg %d: %d\n", arg, result);
                 }
                 exit(EXIT_SUCCESS);
         }
