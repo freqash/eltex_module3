@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int min(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
     int result = 999999999;
     for(int i = 1; i < argc; i++)

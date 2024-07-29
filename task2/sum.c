@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int sum(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
     int result = 0;
     for(int i = 1; i < argc; i++)

@@ -3,9 +3,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int multip(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
-    int result = 0;
+    int result = 1;
     for(int i = 1; i < argc; i++)
     {
         result *= atoi(argv[i]);

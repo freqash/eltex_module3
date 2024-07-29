@@ -1,13 +1,29 @@
-CC = gcc
-CFLAGS = -Wall -g
-SRCS = cli.c max.c min.c multip.c sum.c
-OBJS = $(SRCS:.c=.o)
-TARGET = cli
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+SRC = cli.c sum.c min.c max.c multip.c
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+BIN = cli sum min max multip
+
+CC = gcc
+
+CFLAGS = -Wall
+
+all: $(BIN)
+
+# Компиляция каждого .c файла в отдельное приложение
+cli: cli.c
+	$(CC) $(CFLAGS) -o cli cli.c
+
+sum: sum.c
+	$(CC) $(CFLAGS) -o sum sum.c
+
+min: min.c
+	$(CC) $(CFLAGS) -o min min.c
+
+max: max.c
+	$(CC) $(CFLAGS) -o max max.c
+
+multip: multip.c
+	$(CC) $(CFLAGS) -o multip multip.c
+
+# Очистка созданных файлов
 clean:
-	rm -f $(OBJS) $(TARGET)
-.PHONY: clean
+	rm -f $(BIN)

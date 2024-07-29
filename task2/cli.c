@@ -2,50 +2,45 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
-#define MAX_INPUT_SIZE 100
-#define MAX_ARGS 50
+#define MAX_COMMAND_SIZE 100
+#define MAX_NUM_ARGUMENTS 50
 
-int main()
-{
-    char input[MAX_INPUT_SIZE];
-    char *args[MAX_ARGS + 1];
-
+int main() {
+    char command[MAX_COMMAND_SIZE];
+    printf("commands: sum | min | max | multip | exit\n");
     printf("command-line interpretator\n");
-    while(1)
+    while (1) 
     {
-        printf("> ");
-        fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = 0;
-        if (strcmp(input, "exit") == 0) 
+        printf(">");
+        fgets(command, MAX_COMMAND_SIZE, stdin);
+        command[strcspn(command, "\n")] = 0;
+        if (strcmp(command, "exit") == 0) 
         {
-
             break;
-        }
+        } 
+        char *args[MAX_NUM_ARGUMENTS];
+        int argc = 0;
+        args[argc] = strtok(command, " ");
 
-        int i = 0;
-        args[i] = strtok(input, " ");
-        while (args[i] != NULL && i < MAX_ARGS) 
+        while (args[argc] != NULL && argc < MAX_NUM_ARGUMENTS) 
         {
-            i++;
-            args[i] = strtok(NULL, " ");
-
-        pid_t pid = fork();
-
-        if (pid < 0) {
-            perror("error: creating proc");
-            continue;
-        } else if (pid == 0) {
+            argc++;
+            args[argc] = strtok(NULL, " ");
+        }
+        char program_with_path[MAX_COMMAND_SIZE];
+        snprintf(program_with_path, sizeof(program_with_path), "./%s", args[0]);
+        args[0] = program_with_path;
+        if (fork() == 0) 
+        {
             execvp(args[0], args);
-            perror("error: procces exec");
+            perror("error: ");
             exit(1);
-        } else {
+        } 
+        else 
+        {
             wait(NULL);
         }
     }
-
     return 0;
-    }
 }
